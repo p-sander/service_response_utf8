@@ -28,4 +28,11 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiError> handleAllExceptions(Exception ex) {
+        log.error("An unexpected error occurred: {}", ex.getMessage(), ex);
+        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "An internal server error occurred.");
+        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
