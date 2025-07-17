@@ -7,6 +7,9 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 @Endpoint
 public class XmlConversionEndpoint {
 
@@ -15,6 +18,15 @@ public class XmlConversionEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "ConvertXmlRequest")
     @ResponsePayload
     public ConvertXmlResponse convertXmlEncoding(@RequestPayload ConvertXmlRequest request) {
-        return new ConvertXmlResponse();
+
+        byte[] base64DecodedBytes = request.getXmlContent();
+        String originalEncoding = request.getOriginalEncoding();
+
+        String originalXmlString = new String(base64DecodedBytes, Charset.forName(originalEncoding));
+        byte[] utf8Bytes = originalXmlString.getBytes(StandardCharsets.UTF_8);
+
+        ConvertXmlResponse response = new ConvertXmlResponse();
+        response.setConvertedXmlContent(utf8Bytes);
+        return response;
     }
 }
