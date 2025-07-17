@@ -1,0 +1,23 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.example.com/soap/conversion"
+           targetNamespace="http://www.example.com/soap/conversion"
+           elementFormDefault="qualified">
+
+    <xs:element name="ConvertXmlRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="originalEncoding" type="xs:string"/>
+                <xs:element name="xmlContent" type="xs:base64Binary"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ConvertXmlResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="convertedXmlContent" type="xs:base64Binary"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
