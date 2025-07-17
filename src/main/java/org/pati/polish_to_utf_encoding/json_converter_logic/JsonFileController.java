@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
 
-
 @RestController
 @RequestMapping("/json")
 @Slf4j
